@@ -8,6 +8,26 @@ url = 'https://www.oi.com.br/grandes-empresas/'
 
 items = [
     (
+        'slick-slide-control00',
+        '//*[@id="slick-slide00"]/div/div/div/div[3]/a',
+        'https://www.oi.com.br/grandes-empresas/seguranca/managed-detection-and-response-mdr/',
+    ),
+    (
+        'slick-slide-control01',
+        '//*[@id="slick-slide01"]/div/div/div/div[3]/a',
+        'https://www.oi.com.br/grandes-empresas/blog/observabilidade-a-chave-para-a-gestao-dos-recursos-de-ti-nos-negocios/p/',
+    ),
+    (
+        'slick-slide-control02',
+        '//*[@id="slick-slide02"]/div/div/div/div[3]/a',
+        'https://www.oi.com.br/grandes-empresas/cloud/iago/',
+    ),
+    (
+        'slick-slide-control03',
+        '//*[@id="slick-slide03"]/div/div/div/div[3]/a',
+        'https://www.oi.com.br/grandes-empresas/conheca/',
+    ),
+    (
         'slick-slide-control04',
         '//*[@id="slick-slide04"]/div/div/div/div[3]/a',
         'https://portaloisolucoes.oi.com.br/login',
@@ -24,7 +44,15 @@ items = [
     ),
 ]
 
-ids = ['atendimento', 'solucoes em pauta', 'cloud hub']
+ids = [
+    'seguranca',
+    'observabilidade',
+    'iago',
+    'oi solucoes',
+    'atendimento',
+    'solucoes em pauta',
+    'cloud hub',
+]
 
 
 # @pytest.mark.skip

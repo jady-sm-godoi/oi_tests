@@ -9,12 +9,10 @@ from slugify import slugify
 def test_blog_exists(browser, home_url):
     browser.get(home_url)
     section = WebDriverWait(browser, 10).until(
-        EC.presence_of_element_located(
-            (
-                By.CSS_SELECTOR,
-                "section.blog",
-            )
-        )
+        EC.presence_of_element_located((
+            By.CSS_SELECTOR,
+            'section.blog',
+        ))
     )
 
     assert section is not None
@@ -22,16 +20,16 @@ def test_blog_exists(browser, home_url):
 
 #  test click items  ##########################################################
 items = [
-    ('//*[@id="home"]/section[4]/div/div/div[2]',),
-    ('//*[@id="home"]/section[4]/div/div/div[3]',),
-    ('//*[@id="home"]/section[4]/div/div/div[4]',),
+    '//*[@id="home"]/section[4]/div/div/div[2]',
+    '//*[@id="home"]/section[4]/div/div/div[3]',
+    '//*[@id="home"]/section[4]/div/div/div[4]',
 ]
 
-ids = ["post 1", "post 2", "post 3"]
+ids = ['post 1', 'post 2', 'post 3']
 
 
 # @pytest.mark.skip
-@pytest.mark.parametrize(("btn_xpath",), items, ids=ids)
+@pytest.mark.parametrize('btn_xpath', items, ids=ids)
 def test_click_item__(browser, home_url, btn_xpath):
     browser.get(home_url)
     blog_item = WebDriverWait(browser, 10).until(
@@ -39,18 +37,33 @@ def test_click_item__(browser, home_url, btn_xpath):
     )
     assert blog_item is not None
 
-    img_tag = blog_item.find_element(By.TAG_NAME, "img")
-    img_src = img_tag.get_attribute("src")
+    img_tag = blog_item.find_element(By.TAG_NAME, 'img')
+    img_src = img_tag.get_attribute('src')
 
     assert img_src is not None
 
     a_tag = WebDriverWait(browser, 10).until(
-        EC.element_to_be_clickable(blog_item.find_element(By.TAG_NAME, "a"))
+        EC.element_to_be_clickable(blog_item.find_element(By.TAG_NAME, 'a'))
     )
-    browser.execute_script("arguments[0].scrollIntoView();", a_tag)
-    future_title = a_tag.get_attribute("href").split("/")[-3]
+    browser.execute_script('arguments[0].scrollIntoView();', a_tag)
+    future_title = a_tag.get_attribute('href').split('/')[-3]
 
     a_tag.click()
 
     current_title = slugify(browser.title)
     assert future_title in current_title
+
+
+def test_click_btnToBlog(browser, home_url):
+    browser.get(home_url)
+    btnToBlog = WebDriverWait(browser, 10).until(
+        EC.element_to_be_clickable((
+            By.XPATH,
+            '//*[@id="home"]/section[4]/div/div/div[5]/a',
+        ))
+    )
+    browser.execute_script('arguments[0].scrollIntoView();', btnToBlog)
+    btnToBlog.click()
+    target_url = 'https://www.oi.com.br/grandes-empresas/blog/'
+    WebDriverWait(browser, 10).until(EC.url_to_be(target_url))
+    assert browser.current_url == target_url
